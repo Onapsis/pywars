@@ -1,0 +1,1 @@
+-e git+https://github.com/Onapsis/sandboxed-game-engine.git#egg=turnboxed
