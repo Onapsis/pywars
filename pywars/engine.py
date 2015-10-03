@@ -308,8 +308,8 @@ class PyWarsGameController(BaseGameController):
                 return b
         return None
 
-    def write_game_output(self):
-        pprint.pprint(json.dumps(self.arena.match.__json__()))
+    def json_game_output(self):
+        return json.dumps(self.arena.match.__json__())
 
     def evaluate_turn(self, request, bot_cookie):
         # Game logic here. Return should be an integer."
