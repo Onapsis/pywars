@@ -7,8 +7,10 @@ class Mybot(BaseBot):
         BaseBot.__init__(self)
 
     def on_turn(self, data_dict):
-        raise Exception(data_dict)
-        return {'ACTION': 'SHOOT', 'VEL': 100, 'ANGLE': 50}
+        if data_dict['life'] != 100:
+            return {'ACTION': 'MOVE', 'WHERE': 1}
+        else:
+            return {'ACTION': 'SHOOT', 'VEL': 100, 'ANGLE': 50}
 
 a = Mybot()
 
