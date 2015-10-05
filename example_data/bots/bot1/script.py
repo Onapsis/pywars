@@ -6,8 +6,8 @@ class Mybot(BaseBot):
     def __init__(self):
         BaseBot.__init__(self)
 
-    def on_turn(self, msg):
-        raise Exception(msg)
+    def on_turn(self, data_dict):
+        raise Exception(data_dict)
         return {'ACTION': 'SHOOT', 'VEL': 100, 'ANGLE': 50}
 
 a = Mybot()

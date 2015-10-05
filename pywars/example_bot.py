@@ -21,9 +21,9 @@ from basebot import BaseBot
 
 class Bot(BaseBot):
 
-    def evaluate_turn(self, feedback, life):
+    def evaluate_turn(self, data_dict):
         '''
-        :param feedback: (dict) the result of the previous turn,
+        :param data_dict: (dict) the result of the previous turn,
             ie: for the move action 'SUCCESS' is returned when the enemy
             received a hit, or 'FAILED' when missed the shot.
         {'RESULT': 'SUCCESS' | 'FAILED', Result of the action

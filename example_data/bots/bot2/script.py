@@ -6,7 +6,7 @@ class Mybot(BaseBot):
     def __init__(self):
         BaseBot.__init__(self)
 
-    def on_turn(self, msg):
+    def on_turn(self, data_dict):
         return {'ACTION': 'MOVE', 'WHERE': 1}
         #return {'ACTION': 'SHOOT', 'VEL': 100, 'ANGLE': 35}
 
