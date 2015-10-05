@@ -13,10 +13,11 @@ def main(argv):
         pywars_game.add_player(b.username, b.script)
     pywars_game.run()
 
-    pywars_game.write_game_output()
+    json_data = pywars_game.json_game_output()
+    print(json_data)
 
     sys.exit(0)
 
 
 if __name__ == "__main__":
-    main(["bots/bot1/script.py", "bots/bot2/script.py"])
+    main(["/tmp/tmphytOj1/bot1/script.py", "/tmp/tmphytOj1/bot2/script.py"])

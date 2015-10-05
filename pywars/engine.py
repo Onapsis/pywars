@@ -148,7 +148,7 @@ class PywarsArena(object):
         """Register the new player at the (x, y) position on the arena."""
         player.x, player.y = x, y
         self.arena[x, y] = player.color
-        x_factor = -1 if x <= (width // 2) else 1
+        x_factor = 1 if x <= (width // 2) else -1
         player.assign_team(x_factor)
         player.move_feedback(ok=True)
         self.match.trace_action(dict(action="new_player",
@@ -243,7 +243,7 @@ class PywarsArena(object):
                 p.decrease_life(DAMAGE_DELTA)
                 self.match.trace_action(dict(action="make_healthy",
                                              player=p.username,
-                                             health_value=player.life))
+                                             health_value=p.life))
 
 
 class PywarsGroundMatchLog(object):
@@ -324,6 +324,7 @@ class PyWarsGameController(BaseGameController):
                 # heal
                 bot.heal()
         except TankDestroyedException, e:
+            self.arena.match.lost(bot, e.reason)
             self.log_msg("Tank destroyed: " + str(e))
             self.stop()
         return -1

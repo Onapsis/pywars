@@ -1,8 +1,8 @@
 from pywars.engine import BotPlayer, PyWarsGameController
 
 
-def run_match(p1_script, p2_script,
-              p1_name="user1", p2_name="user2"):
+def run_match(p1_script, p2_script, p1_name="user1", p2_name="user2"):
+    print "GOT PARAMS: ", p1_script, p2_script, p1_name, p2_name
     bots = [BotPlayer(p1_name, p1_script),
             BotPlayer(p2_name, p2_script)]
 
