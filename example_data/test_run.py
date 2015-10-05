@@ -20,4 +20,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(["/tmp/tmphytOj1/bot1/script.py", "/tmp/tmphytOj1/bot2/script.py"])
+    main(["bots/bot1/script.py", "bots/bot2/script.py"])

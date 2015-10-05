@@ -7,6 +7,7 @@ class Mybot(BaseBot):
         BaseBot.__init__(self)
 
     def on_turn(self, msg):
+        raise Exception(msg)
         return {'ACTION': 'SHOOT', 'VEL': 100, 'ANGLE': 50}
 
 a = Mybot()

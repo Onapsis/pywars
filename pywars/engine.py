@@ -314,19 +314,25 @@ class PyWarsGameController(BaseGameController):
     def evaluate_turn(self, request, bot_cookie):
         # Game logic here. Return should be an integer."
         bot = self.get_bot(bot_cookie)
-        print "BOT STATUS: ", bot.username, bot.x_factor, bot.x, bot.x_factor, bot.life
-        try:
-            if request['MSG']['ACTION'] == 'SHOOT':
-                self.arena.resolve_shoot_action(bot, request['MSG']['VEL'], request['MSG']['ANGLE'])
-            elif request['MSG']['ACTION'] == 'MOVE':
-                self.arena.resolve_move_action(bot, request['MSG']['WHERE'])
-            else:
-                # heal
-                bot.heal()
-        except TankDestroyedException, e:
-            self.arena.match.lost(bot, e.reason)
-            self.log_msg("Tank destroyed: " + str(e))
+        #print "BOT STATUS: ", request, bot.username, bot.x_factor, bot.x, bot.x_factor, bot.life
+        if "EXCEPTION" in request.keys():
+            # bot failed in turn
+            self.arena.match.lost(bot, request['EXCEPTION'])
+            self.log_msg("Tank destroyed: " + request['EXCEPTION'])
             self.stop()
+        else:
+            try:
+                if request['MSG']['ACTION'] == 'SHOOT':
+                    self.arena.resolve_shoot_action(bot, request['MSG']['VEL'], request['MSG']['ANGLE'])
+                elif request['MSG']['ACTION'] == 'MOVE':
+                    self.arena.resolve_move_action(bot, request['MSG']['WHERE'])
+                else:
+                    # heal
+                    bot.heal()
+            except TankDestroyedException, e:
+                self.arena.match.lost(bot, e.reason)
+                self.log_msg("Tank destroyed: " + str(e))
+                self.stop()
         return -1
 
     def get_turn_data(self, bot_cookie):
