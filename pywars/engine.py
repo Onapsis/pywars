@@ -3,6 +3,7 @@
 import json
 import pprint
 import math
+import random
 from turnboxed.gamecontroller import BaseGameController
 
 
@@ -67,12 +68,11 @@ def _resolve_missing(distance):
 def _x_for_players(players, limit):
     """Given the list of players, return the numbers which will indicate the
     initial position of each one, according to the formula."""
-    half = limit // 2
-    m = len(''.join(p.username for p in players))
-    n = sum(xrange(m))
-    k = (n * m * 12832) % half
-    return k, limit - k - 1
-
+    limit -= 5
+    xs = []
+    for p in players:
+        xs.append(random.choice(range(1, limit + 1)))
+    return xs
 
 def shoot_projectile(speed, angle, starting_height=0.0, gravity=9.8, x_limit=1000):
     '''

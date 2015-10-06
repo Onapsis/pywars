@@ -10,7 +10,6 @@ class Mybot(BaseBot):
         return {'ACTION': 'MOVE', 'WHERE': 1}
         #return {'ACTION': 'SHOOT', 'VEL': 100, 'ANGLE': 35}
 
-a = Mybot()
 
 # class Bot(object):
 #     def evaluate_turn(self, feedback, life):
