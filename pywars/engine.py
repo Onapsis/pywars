@@ -68,11 +68,10 @@ def _resolve_missing(distance):
 def _x_for_players(players, limit):
     """Given the list of players, return the numbers which will indicate the
     initial position of each one, according to the formula."""
-    limit -= 5
-    xs = []
-    for p in players:
-        xs.append(random.choice(range(1, limit + 1)))
-    return xs
+    half = limit // 2
+    p1_x = random.choice(range(1, half))
+    p2_x = random.choice(range(half + 1, limit))
+    return p1_x, p2_x
 
 def shoot_projectile(speed, angle, starting_height=0.0, gravity=9.8, x_limit=1000):
     '''

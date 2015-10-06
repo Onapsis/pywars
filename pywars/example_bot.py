@@ -34,5 +34,3 @@ class Bot(BaseBot):
         :return: see the comments above
         '''
         return None
-
-my_bot = Bot()

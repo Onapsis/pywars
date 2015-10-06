@@ -9,7 +9,6 @@ class Mybot(BaseBot):
         self.direction = "RIGHT"
         self.previous = None
 
-
     def on_turn(self, data_dict):
         if data_dict['life'] != 100:
             # I was hit
