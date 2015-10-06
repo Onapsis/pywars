@@ -1,10 +1,29 @@
 from basebot import BaseBot
 
+# Example responses:
+#
+# Move forwards:
+#   return {'ACTION': 'MOVE', 'WHERE': 1}
+#
+# Move backwards:
+#   return {'ACTION': 'MOVE', 'WHERE': -1}
+#
+# Shooting projectile:
+#   return {'ACTION': 'SHOOT', 'VEL': 100, 'ANGLE': 35}
+#   # 'VEL' should be a value x, 0 < x < 150
+#   # 'ANGLE' should be an x, 10 <= x < 90
+#
+#
+# Do nothing:
+#   return None
+#
+# For full API description and usage please visit the Rules section
 
-class MyBot2(BaseBot):
+class Bot(BaseBot):
 
     def __init__(self):
         BaseBot.__init__(self)
+        self.previous = None
         self.shoot_pwr = 80
 
     def on_turn(self, data_dict):

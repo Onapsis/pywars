@@ -320,6 +320,8 @@ class PyWarsGameController(BaseGameController):
             self.arena.match.lost(bot, request['EXCEPTION'])
             self.log_msg("EXCP: Tank destroyed: " + request['EXCEPTION'])
             self.stop()
+        elif request['MSG'] is None:
+            bot.heal()
         else:
             try:
                 if request['MSG']['ACTION'] == 'SHOOT':
