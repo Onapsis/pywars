@@ -71,6 +71,7 @@ def _x_for_players(players, limit):
     half = limit // 2
     p1_x = random.choice(range(1, half))
     p2_x = random.choice(range(half + 1, limit))
+    print "PLAYER POSITIONS: ", p1_x, p2_x
     return p1_x, p2_x
 
 def shoot_projectile(speed, angle, starting_height=0.0, gravity=9.8, x_limit=1000):
@@ -317,7 +318,7 @@ class PyWarsGameController(BaseGameController):
         if "EXCEPTION" in request.keys():
             # bot failed in turn
             self.arena.match.lost(bot, request['EXCEPTION'])
-            self.log_msg("Tank destroyed: " + request['EXCEPTION'])
+            self.log_msg("EXCP: Tank destroyed: " + request['EXCEPTION'])
             self.stop()
         else:
             try:
