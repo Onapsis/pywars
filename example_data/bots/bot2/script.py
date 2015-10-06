@@ -19,10 +19,9 @@ from basebot import BaseBot
 #
 # For full API description and usage please visit the Rules section
 
+
 class Bot(BaseBot):
 
-    def __init__(self):
-        BaseBot.__init__(self)
 
     def on_turn(self, data_dict):
         '''

@@ -65,13 +65,13 @@ def _resolve_missing(distance):
         return COLD
 
 
-def _x_for_players(players, limit):
+def _x_for_players(limit):
     """Given the list of players, return the numbers which will indicate the
     initial position of each one, according to the formula."""
     half = limit // 2
     p1_x = random.choice(range(1, half))
     p2_x = random.choice(range(half + 1, limit))
-    print "PLAYER POSITIONS: ", p1_x, p2_x
+    print "Inital player positions: ", p1_x, p2_x
     return p1_x, p2_x
 
 def shoot_projectile(speed, angle, starting_height=0.0, gravity=9.8, x_limit=1000):
@@ -132,10 +132,8 @@ class PywarsArena(object):
         self.match.trace_action(dict(action="new_arena",
                                      width=self.width,
                                      height=self.height,))
-        #if self.randoms:
-        #    x1, x2 = map(int, self.randoms)
-        #else:
-        x1, x2 = _x_for_players(self.players, limit=self.width)
+
+        x1, x2 = _x_for_players(self.width)
         for i, player in enumerate(self.players, start=1):
             player.color = i
             player.status = self.PLAYING
@@ -163,7 +161,6 @@ class PywarsArena(object):
         if player.x_factor == 1:
             #Do not include half for ANY player, to avoid crashes
             return 0 <= new_x < half
-        #player.x_factor == -1, idem: half is not valid location:
         return half < new_x < self.width
 
     def resolve_move_action(self, player, where):
@@ -190,13 +187,10 @@ class PywarsArena(object):
         initial_x = trajectory[0][0]  # x of the first coord
         delta_x = player.x - initial_x
         trajectory = [(x + delta_x, y) for x, y in trajectory]
-        #x_off = lambda i: int(i) if player.x_factor == -1 else int(i)
-        #return [(int(x), int(y)) for x, y in trajectory]
         initial_x = player.x
         shoot_x = initial_x + int((trajectory[1][0] )/SCALE)
 
-        shoot = [(initial_x,0) ,( shoot_x,0)]
-        #print_msg("SHOOT %s Factor %s Trajectory %s" % (shoot, player.x_factor, trajectory[1][0]))
+        shoot = [(initial_x, 0), (shoot_x, 0)]
         return shoot
 
     def _scale_coords(self, (x, y)):
@@ -215,7 +209,6 @@ class PywarsArena(object):
     def resolve_shoot_action(self, player, speed, angle):
         trajectory = shoot_projectile(speed, angle, x_limit=self.width)
         trajectory = self.adjust_player_shoot_trajectory(player, trajectory)
-        #print "TRAJECTORY: ", trajectory
         x_m_origen, x_m_destino = trajectory[0][0], trajectory[1][0]
 
         # Log the shoot made by the player
@@ -225,9 +218,6 @@ class PywarsArena(object):
                                      speed=speed,
                                      trajectory=trajectory,
                                      ))
-        # Get the impact coordinates
-        #x_imp, y_imp = self._scale_coords(trajectory[-1])
-        # Correct x_imp according to our scale
         x_imp = x_m_destino
         try:
             affected_players = [p for p in self.players if p.x == x_imp]
@@ -314,7 +304,6 @@ class PyWarsGameController(BaseGameController):
     def evaluate_turn(self, request, bot_cookie):
         # Game logic here. Return should be an integer."
         bot = self.get_bot(bot_cookie)
-        #print "BOT STATUS: ", request, bot.username, bot.x_factor, bot.x, bot.x_factor, bot.life
         if "EXCEPTION" in request.keys():
             # bot failed in turn
             self.arena.match.lost(bot, request['EXCEPTION'])
@@ -341,8 +330,6 @@ class PyWarsGameController(BaseGameController):
         bot = self.get_bot(bot_cookie)
         # this should return the data sent to the bot
         # on each turn
-        #pprint.pprint(self.players[bot_cookie]['player_id'])
-        bot_id = self.players[bot_cookie]['player_id']
         f = {"feedback": bot.feedback, "life": bot.life}
         self.log_msg("FEEDBACK: " + str(f))
         return f

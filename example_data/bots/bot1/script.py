@@ -19,10 +19,11 @@ from basebot import BaseBot
 #
 # For full API description and usage please visit the Rules section
 
+
 class Bot(BaseBot):
 
+
     def __init__(self):
-        BaseBot.__init__(self)
         self.previous = None
         self.shoot_pwr = 80
 
